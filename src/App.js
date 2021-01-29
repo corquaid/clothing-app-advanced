@@ -34,7 +34,6 @@ class App extends React.Component {
             ...snapShot.data()
             }
           });
-          console.log(this.state);
         });
        } else {
         // If userAuth object returns as null, i.e. no user signed in:
