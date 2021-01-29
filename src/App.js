@@ -5,7 +5,7 @@ import HomePage from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import Header from './components/header/header';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
   constructor() {
@@ -20,10 +20,26 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user })
-
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // Need to add current user data into app state
+      // If userAuth object contains information:
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        // Looking for snapshot data newly created or already existing
+        userRef.onSnapshot(snapShot => {
+          // Update state with id and snapShot.data() method
+          this.setState({
+            currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+            }
+          });
+          console.log(this.state);
+        });
+       } else {
+        // If userAuth object returns as null, i.e. no user signed in:
+        this.setState({ currentUser: userAuth });
+      }
     });
   }
 
