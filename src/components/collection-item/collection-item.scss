@@ -4,6 +4,7 @@
   flex-direction: column;
   height: 350px;
   align-items: center;
+  position: relative; // positioned relative to its normal position
 
   .image {
     width: 100%;
@@ -11,6 +12,25 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+  }
+
+  .custom-button {
+    width: 80%;
+    opacity: 0.7;
+    position: absolute; // keeps the button at the bottom of the container
+    top: 255px;
+    display: none; // button is normally hidden
+  }
+
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+
+    .custom-button {
+      opacity: 0.85;
+      display: flex; // button appears when image is hovered over
+    }
   }
 
   .collection-footer {

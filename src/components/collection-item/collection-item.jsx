@@ -1,8 +1,16 @@
 import React from 'react';
-import './collection-item.scss';
-import SHOP_DATA from '../../pages/shop/shop.data';
 
-const CollectionItem = ({ id, name, price, imageUrl }) => (
+import { connect } from 'react-redux';
+
+import CustomButton from '../custom-button/custom-button'
+import { addItem } from '../../redux/cart/cart.actions';
+
+import './collection-item.scss';
+
+const CollectionItem = ({ item, addItem }) => {
+  const { name, price, imageUrl } = item; // desctructure values from the item object
+
+  return(
   <div className='collection-item'>
     <div 
       className='image'
@@ -14,7 +22,14 @@ const CollectionItem = ({ id, name, price, imageUrl }) => (
       <span className='name'>{ name }</span>
       <span className='price'>{ price }</span>
     </div>
+  <CustomButton onClick={() => addItem(item)}inverted> Add to Cart</CustomButton> 
+  {/* addItem function is fired on each button click */}
   </div>
-);
+  )
+};
 
-export default CollectionItem;
+const mapDispatchToProps = dispatch => ({ // addItem will now be accessible in the props
+  addItem: item => dispatch(addItem(item))
+});
+
+export default connect(null, mapDispatchToProps)(CollectionItem);
