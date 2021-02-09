@@ -9,8 +9,19 @@ export const selectCartItems = createSelector( // 1st arg is the input selectors
   (cart) => cart.cartItems
 );
 
+export const selectCartHidden = createSelector(
+  [selectCart],
+  cart => cart.hidden
+)
+
 // Replacing mapstatetoprops with reduce function in cart-icon
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
   cartItems => cartItems.reduce((totalQuantity, cartItem) => totalQuantity + cartItem.quantity , 0)
 );
+
+// Another reduce function to calculate the total cost of items in the cart
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  cartItems => cartItems.reduce((totalPrice, cartItem) => totalPrice + (cartItem.price * cartItem.quantity), 0)
+)

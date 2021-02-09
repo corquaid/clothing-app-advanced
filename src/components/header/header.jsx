@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'; // connect is a higher-order component that allows us to connect our current component (header) to the redux library
+import { createStructuredSelector } from 'reselect'; // this cuts down on the code required in the mapstatetoprops function
+
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from '../cart-icon/cart-icon';
@@ -36,9 +40,9 @@ const Header = ({ currentUser, hidden }) => ( // currentUser here will contain t
   </div>
 );
 
-const mapStateToProps = ({ user: {currentUser}, cart: { hidden } }) => ({ // state argument is the root reducer contents, NOTE NESTED DESTRUCTURING!!
-  currentUser, // ADVANCED DESTRUCTURING TO REACH NESTED ITEMS IN STATE OBJECT
-  hidden
+const mapStateToProps = state => createStructuredSelector({ // state argument is automatically passed in by this createStructuredSelector call
+  currentUser: selectCurrentUser, 
+  hidden: selectCartHidden
 })
 
 export default connect(mapStateToProps)(Header); // Header component is exported with the redux state in-built
