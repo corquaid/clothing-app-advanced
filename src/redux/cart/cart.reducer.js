@@ -1,5 +1,6 @@
 import CartActionTypes from './cart.types';
-import { addItemToCart } from './cart.utils';
+import { clearItemFromCart } from './cart.actions';
+import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true, // dropdown is hidden when website loads initially
@@ -17,6 +18,18 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload) // external utils function to create new cart array with new item to add, taken from the payload value
+      };
+    case CartActionTypes.CLEAR_ITEM_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter( // function that removes item from cart, returning a new array with the item to be removed filtered out
+          cartItem => cartItem.id !== action.payload.id // keep any items whose id does not match the item that we are trying to remove
+        )
+      };
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload)
       }
     default:
       return state;

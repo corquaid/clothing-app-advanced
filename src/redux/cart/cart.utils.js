@@ -13,4 +13,21 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         )
     }
     return [...cartItems, {...cartItemToAdd, quantity: 1 }]; // if item to be added is not found above, then return a new array with all existing items plus the new item with an initial quantity of 1
-}
+};
+
+// Funtion to remove/decrement items from cart using checkout page arrows
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  const existingCartItem = cartItems.find(
+    cartItem => cartItem.id === cartItemToRemove.id
+  );
+
+  if (existingCartItem.quantity === 1) { // if there is only one of these items in the cart
+    return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id) // keep the items whose id does not match the id to remove
+  }
+
+  return cartItems.map( // if there is more than one of the item to be removed in the cart
+    cartItem => cartItem.id === cartItemToRemove.id ?
+    {...cartItem, quantity: cartItem.quantity - 1}
+    : cartItem
+  );
+};
