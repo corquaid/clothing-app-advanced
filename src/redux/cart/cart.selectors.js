@@ -6,7 +6,7 @@ const selectCart = state => state.cart; // this selects only the cart component 
 // Replacing mapstatetoprops in cart-dropdown
 export const selectCartItems = createSelector( // 1st arg is the input selectors, 2nd arg is a function
   [selectCart],
-  (cart) => cart.cartItems
+  cart => cart.cartItems
 );
 
 export const selectCartHidden = createSelector(
