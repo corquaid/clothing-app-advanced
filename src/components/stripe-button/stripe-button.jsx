@@ -22,7 +22,7 @@ const StripeCheckoutButton = ({ price }) => {
       description={`Your total is $${price}`}
       amount={priceForStripe}
       panelLabel='Pay Now'
-      token={onToken} // callback function which triggers the payment charge in the backend normally, but here it will just a front-end alert message
+      token={onToken} // callback function which triggers the payment charge in the backend normally, but here it will just sa front-end alert message
       stripeKey={publishableKey}
     />
   );
