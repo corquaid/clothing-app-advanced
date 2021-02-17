@@ -16,6 +16,8 @@ import Header from './components/header/header';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
+
+
 class App extends React.Component {
 // constructor deleted as state is now handled in Redux
 
@@ -31,10 +33,10 @@ class App extends React.Component {
       // If userAuth object contains information:
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        // Looking for snapshot data newly created or already existing
+        // Looking for snapshot data newly created or already existing, LISTENER FUNCTION
         userRef.onSnapshot(snapShot => {
           // Update state with id and snapShot.data() method
-          setCurrentUser({ // user action called here from the props instead of local app.js state
+          setCurrentUser({ // REDUX user action called here from the props instead of local app.js state
             id: snapShot.id,
             ...snapShot.data()
           });
@@ -42,7 +44,7 @@ class App extends React.Component {
        } 
         // If userAuth object returns as null, i.e. no user signed in:
         setCurrentUser(userAuth); // current user key removed
-      
+        // addCollectionAndDocuments('collections', collectionsArray.map(({ title, items }) => ({ title, items }))) // mapping the shop data to Firestore, BUT only returning the values which we want to keep, namely title and items. Other values will not be sent to Firebase
     });
   }
 
@@ -78,7 +80,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({ // using createStructuredSelector from reselect module to allow for code extension in future
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  // collectionsArray: selectCollectionsForPreview
 })
 
 const mapDispatchToProps = dispatch => ({ // mapDispatchToProps
