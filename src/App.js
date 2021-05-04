@@ -50,7 +50,7 @@ class App extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
-  }
+  } // unsubscribe from observable stream (users logging in and out on firebase database) when component is removed from DOM.
   // to here.
 
 
