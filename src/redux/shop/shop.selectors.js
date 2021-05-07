@@ -22,3 +22,14 @@ export const selectCollection = collectionUrlParam =>
     // ternary added to handle case of an empty collections object, if null is returned then child components will render an empty state
     collections => collections ? collections[collectionUrlParam] : null
   )
+
+export const selectIsCollectionFetching = createSelector(
+  [selectShop],
+  shop => shop.isFetching
+)
+
+// additional selector to determine if API call has returned collections
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  shop => !!shop.collections // double-bang !! syntax converts shop.collections to truthy or falsy Boolean value depending on whether it exists or not
+)
