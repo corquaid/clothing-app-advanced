@@ -21,6 +21,7 @@
         "stripe": "6.28.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.14.0",
         "concurrently": "^4.0.1",
         "nodemon": "^1.19.1"
     }
