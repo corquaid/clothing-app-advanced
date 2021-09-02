@@ -2,7 +2,7 @@ import React from 'react';
 
 import './cart-item.scss';
 
-const CartItem = ({ item: { imageUrl, price, name, quantity }}) => ( // destructure within the function argument
+export const CartItem = ({ item: { imageUrl, price, name, quantity }}) => ( // destructure within the function argument
   <div className='cart-item'>
     <img src={imageUrl} alt='item' />
     <div className='item-details'>

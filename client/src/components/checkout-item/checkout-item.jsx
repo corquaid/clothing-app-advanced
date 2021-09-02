@@ -5,7 +5,7 @@ import { clearItemFromCart, addItem, removeItem } from '../../redux/cart/cart.ac
 
 import './checkout-item.scss';
 
-const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
+export const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
   const { imageUrl, name, price, quantity } = cartItem;
 
   return (
@@ -15,9 +15,9 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
       </div>
       <span className='name'>{name}</span>
       <span className='quantity'>
-        <div className='arrow' onClick={() => removeItem(cartItem)}>&#10094;</div> {/* left-facing decrease arrow */}
+        <div className='arrow left-arrow' onClick={() => removeItem(cartItem)}>&#10094;</div> {/* left-facing decrease arrow */}
         <span className='value'>{quantity}</span>
-        <div className='arrow' onClick={() => addItem(cartItem)}>&#10095;</div> {/* right-facing increase arrow */}
+        <div className='arrow right-arrow' onClick={() => addItem(cartItem)}>&#10095;</div> {/* right-facing increase arrow */}
       </span>
       <span className='price'>{price}</span>
       <div className='remove-button' onClick={() => clearItem(cartItem)}>&#10005;</div>
